@@ -22,7 +22,7 @@ Usually the normal process is:
 
 ---
 
-**That's what this project is about**. You get the harness (the agentic code) and the deliverable (the output of the agentic code). 
+**That's what this project is about**. You get the harness (the agentic code), and the deliverable (the output of the agentic code). 
 
 >> Who knows what kind of potential one might have with different models and different tasks. 
 
@@ -56,13 +56,13 @@ HH/
 │   ├── generator.py         # LLM-based code generation
 │   ├── executor.py          # Sandboxed subprocess execution
 │   ├── reviewer.py          # Multi-faceted LLM review system
-│   └── repairer.py          # Self-repair with branching strategy
+│   ├── repairer.py          # Self-repair with branching strategy
+│   └── runtime.py           # Agentic runtime base class
 ├── modes/                   # Autonomous modes
 │   ├── autolearn.py         # Continuous discovery loop
 │   └── autoimprove.py       # Iterative harness enhancement
 ├── TESTS/                   # Test suite (34 tests)
 │   └── test_all.py
-├── KNOWLEDGE_BASE/          # Project knowledge files (HarnessHarvest.*)
 ├── db/                      # Flat-file database
 │   ├── harnesses/           # Generated harness storage
 │   ├── rag/                 # RAG indexes and entries
@@ -71,7 +71,10 @@ HH/
 │   │   └── prompts/
 │   ├── metrics/             # Performance metrics
 │   └── autolearn/sessions/  # Autolearn session state
-└── sandbox/                 # Sandboxed execution directory (Final Deliverables Output)
+├── sandbox/                 # Sandboxed execution directory
+├── api/                     # API package
+├── logs/                    # Log files
+└── projects/                # Project deliverables
 ```
 
 ## Requirements

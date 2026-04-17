@@ -1,0 +1,157 @@
+{
+    "version": "1.0.0",
+    "ollama": {
+        "host": "http://localhost:11434",
+        "timeout": 600,
+        "models": {
+            "judge": "hf.co/g023/Qwen3-1.77B-g023-GGUF:Q8_0",
+            "reasoner": "qwen3.5:2b",
+            "generator": "qwen3.5:4b-q4_K_M",
+            "repair_syntax": "hf.co/g023/Qwen3-1.77B-g023-GGUF:Q8_0",
+            "repair_reasoning": "qwen3.5:2b",
+            "repair_structural": "qwen3.5:4b-q4_K_M"
+        },
+        "model_contexts": {
+            "hf.co/g023/Qwen3-1.77B-g023-GGUF:Q8_0": 40000,
+            "qwen3.5:2b": 240000,
+            "qwen3.5:4b-q4_K_M": 32768
+        },
+        "options_profiles": {
+            "default": {
+                "num_predict": 16384,
+                "top_k": 40,
+                "top_p": 0.9,
+                "min_p": 0.05,
+                "temperature": 0.7,
+                "repeat_penalty": 1.1,
+                "presence_penalty": 0.1,
+                "frequency_penalty": 0.1,
+                "mirostat": 0,
+                "num_batch": 512,
+                "num_thread": 4,
+                "use_mmap": true,
+                "use_mlock": true
+            },
+            "creative": {
+                "num_predict": 16384,
+                "top_k": 60,
+                "top_p": 0.95,
+                "min_p": 0.03,
+                "temperature": 0.9,
+                "repeat_penalty": 1.05,
+                "presence_penalty": 0.2,
+                "frequency_penalty": 0.15,
+                "mirostat": 0,
+                "num_batch": 512,
+                "num_thread": 4,
+                "use_mmap": true,
+                "use_mlock": true
+            },
+            "precise": {
+                "num_predict": 16384,
+                "top_k": 20,
+                "top_p": 0.8,
+                "min_p": 0.1,
+                "temperature": 0.3,
+                "repeat_penalty": 1.15,
+                "presence_penalty": 0.05,
+                "frequency_penalty": 0.05,
+                "mirostat": 0,
+                "num_batch": 512,
+                "num_thread": 4,
+                "use_mmap": true,
+                "use_mlock": true
+            },
+            "judge": {
+                "num_predict": 8192,
+                "top_k": 20,
+                "top_p": 0.85,
+                "min_p": 0.1,
+                "temperature": 0.2,
+                "repeat_penalty": 1.1,
+                "presence_penalty": 0.05,
+                "frequency_penalty": 0.05,
+                "mirostat": 0,
+                "num_batch": 512,
+                "num_thread": 4,
+                "use_mmap": true,
+                "use_mlock": true
+            }
+        }
+    },
+    "paths": {
+        "db_root": "db",
+        "sandbox_root": "sandbox",
+        "harnesses_dir": "db/harnesses",
+        "rag_dir": "db/rag",
+        "metrics_dir": "db/metrics",
+        "autolearn_dir": "db/autolearn",
+        "logs_dir": "logs"
+    },
+    "sandbox": {
+        "execution_timeout": 300,
+        "max_file_size_mb": 50,
+        "allowed_imports": [
+            "json", "os", "sys", "re", "math", "random", "time",
+            "datetime", "collections", "itertools", "functools",
+            "pathlib", "hashlib", "textwrap", "string", "io",
+            "csv", "html", "xml", "urllib", "copy", "typing",
+            "dataclasses", "enum", "abc", "contextlib"
+        ],
+        "blocked_patterns": [
+            "subprocess", "shutil.rmtree", "os.remove", "os.unlink",
+            "os.rmdir", "eval(", "exec(", "__import__",
+            "importlib", "ctypes", "socket"
+        ]
+    },
+    "harness": {
+        "max_repair_attempts": 5,
+        "max_branches_per_version": 3,
+        "checkpoint_interval_seconds": 60,
+        "min_review_score": 0.6,
+        "auto_repair_threshold": 0.4,
+        "version_retention": 10
+    },
+    "rag": {
+        "embedding_dim": 512,
+        "max_snippets": 100000,
+        "min_snippet_length": 20,
+        "max_snippet_length": 50000,
+        "search_top_k": 10,
+        "bm25_k1": 1.2,
+        "bm25_b": 0.75,
+        "ranking_weights": {
+            "tfidf_similarity": 0.30,
+            "bm25_score": 0.25,
+            "quality_score": 0.20,
+            "usage_frequency": 0.10,
+            "recency_boost": 0.10,
+            "tag_match": 0.05
+        },
+        "time_decay_half_life_days": 90
+    },
+    "autolearn": {
+        "max_iterations": 0,
+        "max_duration_seconds": 0,
+        "idea_temperature": 0.9,
+        "min_score_to_keep": 0.3,
+        "reflection_interval": 3,
+        "session_checkpoint_interval": 1
+    },
+    "autoimprove": {
+        "max_improvement_iterations": 5,
+        "min_improvement_threshold": 0.05,
+        "preserve_functionality_threshold": 0.9
+    },
+    "logging": {
+        "level": "INFO",
+        "max_file_size_mb": 10,
+        "backup_count": 5,
+        "console_output": true
+    },
+    "metrics": {
+        "track_llm_calls": true,
+        "track_execution_time": true,
+        "track_token_usage": true
+    }
+}
